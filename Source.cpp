@@ -9,7 +9,9 @@
 //command line interface with exit (x) command
 
 #include <iostream>
-#include <string>
+#include <string.h>
+#include <stdlib.h>
+#include <limits.h>
 #include <fstream>
 using namespace std;
 
@@ -71,17 +73,17 @@ int main(int argc, char * argv[])
 			if ((argv[i])[1] == 'k')
 			{
 				//set the k, d, or t value, increment i to skip to the next flag
-				k = stoi(argv[++i]);
+				k = atoi(argv[++i]);
 				continue;
 			}
 			else if ((argv[i])[1] == 'd')
 			{
-				d = stoi(argv[++i]);
+				d = atoi(argv[++i]);
 				continue;
 			}
 			else if ((argv[i])[1] == 't')
 			{
-				t = stoi(argv[++i]);
+				t = atoi(argv[++i]);
 				continue;
 			}
 			else //the flag is not valid
@@ -144,7 +146,7 @@ bool argIsFasta(char filename[])
 		if (filename[i] != fasta[j--])
 		{
 			//printf("Error parsing file name: %c does not match %c", &filename[i], fasta[j + 1]);
-			printf("Error parsing file name: file must end with .fasta", &filename[i], fasta[j + 1]);
+			// printf("Error parsing file name: file must end with .fasta", &filename[i], fasta[j + 1]);
 			return false;
 		}
 	}
