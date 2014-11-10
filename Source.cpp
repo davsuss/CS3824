@@ -197,6 +197,10 @@ bool readFasta(char filename[])
 		
 		//parse the line, ignore blank spaces, check if its a header	
 		token = strtok(buf, " ");
+		if (!token) //ignore blank lines
+		{
+			continue;
+		}
 		if (token[0] == '>') //if the line is a header
 		{
 			if (hasHeader)
