@@ -9,19 +9,22 @@
 //command line interface with exit (x) command
 
 #include <iostream>
-#include <string.h>
-#include <stdlib.h>
-#include <limits.h>
+#include <string>
 #include <fstream>
 using namespace std;
+
+//Disable warning message 4996: deprecated function
+#pragma warning(disable : 4996)
 
 //Forward declaration of functions
 bool argIsFasta(char filename[]);
 void commandParser(char newCommand);
 bool readFasta(char filename[]);
+void promptForCommand();
+void randomMotifFinder();
 
 //Error message to show how to invoke the program with flags
-#define _INVOKE_ "invocation: $ MotifFinder -k 8 -d 3 -t 5 input.fasta > MotifFinder.out"
+#define INVOKE "invocation: $ MotifFinder -k 8 -d 3 -t 5 input.fasta > MotifFinder.out"
 #define MAX_SEQUENCE_LENGTH 200
 #define MAX_SEQUENCES 100
 
@@ -58,7 +61,7 @@ int main(int argc, char * argv[])
 	//require there to be at least the input.fasta argument
 	if (argc < 1 || argc > 8)
 	{
-		printf(_INVOKE_ "\n");
+		printf(INVOKE "\n");
 		printf("Too few or too many arguments.\n");
 		printf("Please input a command: ");
 		cin >> command;
@@ -73,22 +76,22 @@ int main(int argc, char * argv[])
 			if ((argv[i])[1] == 'k')
 			{
 				//set the k, d, or t value, increment i to skip to the next flag
-				k = atoi(argv[++i]);
+				k = stoi(argv[++i]);
 				continue;
 			}
 			else if ((argv[i])[1] == 'd')
 			{
-				d = atoi(argv[++i]);
+				d = stoi(argv[++i]);
 				continue;
 			}
 			else if ((argv[i])[1] == 't')
 			{
-				t = atoi(argv[++i]);
+				t = stoi(argv[++i]);
 				continue;
 			}
 			else //the flag is not valid
 			{
-				printf(_INVOKE_ "\n");
+				printf(INVOKE "\n");
 				printf("'Flag is invalid': Current character was: %c\n", (argv[i])[0]);
 				printf("Please input a command: ");
 				cin >> command;
@@ -109,7 +112,7 @@ int main(int argc, char * argv[])
 		}
 		else //something went wrong with parsing the command line
 		{
-			printf(_INVOKE_ "\n");
+			printf(INVOKE "\n");
 			printf("'Something else went wrong': Current character was: %c\n", (argv[i])[0]);
 			printf("Please input a command: ");
 			cin >> command;
@@ -141,12 +144,12 @@ bool argIsFasta(char filename[])
 {
 	char fasta[] = ".fasta";
 	int j = 5;
-	for (int i = strlen(filename) - 1; i > strlen(filename) - 6; i--)
+	for (unsigned int i = strlen(filename) - 1; i > strlen(filename) - 6; i--)
 	{
 		if (filename[i] != fasta[j--])
 		{
 			//printf("Error parsing file name: %c does not match %c", &filename[i], fasta[j + 1]);
-			// printf("Error parsing file name: file must end with .fasta", &filename[i], fasta[j + 1]);
+			printf("Error parsing file name: file must end with .fasta", &filename[i], fasta[j + 1]);
 			return false;
 		}
 	}
@@ -163,15 +166,20 @@ void commandParser(char newCommand)
 	{
 		exit(9);
 	}
+	else if (newCommand == 'r')
+	{
+		randomMotifFinder();
+	}
 	else
 	{
-		printf("Possible commands:\nx: E(x)its the program.\n");
-		cin.clear();
-		cin.ignore(INT_MAX, '\n');
-		//command = cin.get();
-		cin >> command;
-		commandParser(command);
+		printf("Possible commands:\n");
+		printf("x: E(x)its the program.\n");
+		printf("r: Run the (R)andom Motif Finder with current settings\n");
 	}
+	
+	//Wait for a new command and send it
+	promptForCommand();
+
 }
 
 bool readFasta(char filename[])
@@ -227,4 +235,24 @@ bool readFasta(char filename[])
 	//file parse completed
 	printf("Successful load of file.\n");
 	return true;
+}
+
+/*
+Waits for a command from the user and sends it to commandParser()
+*/
+void promptForCommand()
+{
+	printf("Please input a command: ");
+	cin.clear();
+	cin.ignore(INT_MAX, '\n');
+	cin >> command;
+	commandParser(command);
+}
+
+/*
+Finds the best match motif using random loci
+*/
+void randomMotifFinder()
+{
+	printf("Random Motif Finder Not Yet Implemented...\n");
 }
