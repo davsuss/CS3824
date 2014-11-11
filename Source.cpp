@@ -63,9 +63,7 @@ int main(int argc, char * argv[])
 	{
 		printf(INVOKE "\n");
 		printf("Too few or too many arguments.\n");
-		printf("Please input a command: ");
-		cin >> command;
-		commandParser(command);
+		promptForCommand();
 	}
 	//else go into the switch that handles arguments
 	for (int i = 1; i < argc; i++)
@@ -93,9 +91,7 @@ int main(int argc, char * argv[])
 			{
 				printf(INVOKE "\n");
 				printf("'Flag is invalid': Current character was: %c\n", (argv[i])[0]);
-				printf("Please input a command: ");
-				cin >> command;
-				commandParser(command);
+				promptForCommand();
 			}
 		}
 		else if (argIsFasta(argv[i]))
@@ -104,9 +100,7 @@ int main(int argc, char * argv[])
 			if (!readFasta(argv[i]))
 			{
 				printf("Could not load FASTA: %s\n", argv[i]);
-				printf("Please input a command: ");
-				cin >> command;
-				commandParser(command);
+				promptForCommand();
 			}
 			continue;
 		}
@@ -114,9 +108,7 @@ int main(int argc, char * argv[])
 		{
 			printf(INVOKE "\n");
 			printf("'Something else went wrong': Current character was: %c\n", (argv[i])[0]);
-			printf("Please input a command: ");
-			cin >> command;
-			commandParser(command);
+			promptForCommand();
 		}
 	}
 
@@ -131,9 +123,7 @@ int main(int argc, char * argv[])
 		printf("Sequence %d: %s\n", i+1, sequences[i]);
 	}
 	printf("Total Number of Sequences: %d\n", numSequences);
-	printf("Please input a command: ");
-	cin >> command;
-	commandParser(command);
+	promptForCommand();
 	return 0;
 }
 
