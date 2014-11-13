@@ -4,8 +4,9 @@
 
 //This file includes:
 //Translation of random motif finder python file (TODO),
+//Output to file (TODO),
 //Command line parser,
-//toy fasta file parser,
+//fasta file parser,
 //command line interface with exit (x) command
 
 #include <iostream>
@@ -22,11 +23,16 @@ void commandParser(char newCommand);
 bool readFasta(char filename[]);
 void promptForCommand();
 void randomMotifFinder();
+void setNucleotideCount();
 
 //Error message to show how to invoke the program with flags
 #define INVOKE "invocation: $ MotifFinder -k 8 -d 3 -t 5 input.fasta > MotifFinder.out"
 #define MAX_SEQUENCE_LENGTH 200
 #define MAX_SEQUENCES 100
+#define ATIDE 0
+#define TTIDE 1
+#define GTIDE 2
+#define CTIDE 3
 
 int k;				//the given length of the motif, default to 6
 int d;				//the given number of don't cares (*), default to 0
@@ -35,6 +41,9 @@ char command;		//the command given from the user
 char * fastaFile;	//the FASTA file containing the sequence
 char * sequences[MAX_SEQUENCES];	//the sequences that were extracted from the FASTA file
 int numSequences;	//the number of sequences given by the FASTA file
+int nucleotideCount;
+int tideCount[4];
+float tideProbability[4];
 
 
 
@@ -63,9 +72,7 @@ int main(int argc, char * argv[])
 	{
 		printf(INVOKE "\n");
 		printf("Too few or too many arguments.\n");
-		printf("Please input a command: ");
-		cin >> command;
-		commandParser(command);
+		promptForCommand();
 	}
 	//else go into the switch that handles arguments
 	for (int i = 1; i < argc; i++)
@@ -93,9 +100,7 @@ int main(int argc, char * argv[])
 			{
 				printf(INVOKE "\n");
 				printf("'Flag is invalid': Current character was: %c\n", (argv[i])[0]);
-				printf("Please input a command: ");
-				cin >> command;
-				commandParser(command);
+				promptForCommand();
 			}
 		}
 		else if (argIsFasta(argv[i]))
@@ -104,9 +109,7 @@ int main(int argc, char * argv[])
 			if (!readFasta(argv[i]))
 			{
 				printf("Could not load FASTA: %s\n", argv[i]);
-				printf("Please input a command: ");
-				cin >> command;
-				commandParser(command);
+				promptForCommand();
 			}
 			continue;
 		}
@@ -114,9 +117,7 @@ int main(int argc, char * argv[])
 		{
 			printf(INVOKE "\n");
 			printf("'Something else went wrong': Current character was: %c\n", (argv[i])[0]);
-			printf("Please input a command: ");
-			cin >> command;
-			commandParser(command);
+			promptForCommand();
 		}
 	}
 
@@ -131,9 +132,7 @@ int main(int argc, char * argv[])
 		printf("Sequence %d: %s\n", i+1, sequences[i]);
 	}
 	printf("Total Number of Sequences: %d\n", numSequences);
-	printf("Please input a command: ");
-	cin >> command;
-	commandParser(command);
+	promptForCommand();
 	return 0;
 }
 
@@ -178,8 +177,9 @@ void commandParser(char newCommand)
 	}
 	
 	//Wait for a new command and send it
+	cin.clear();
+	cin.ignore(INT_MAX, '\n'); //ignore everything in the buffer up to newline
 	promptForCommand();
-
 }
 
 bool readFasta(char filename[])
@@ -243,8 +243,6 @@ Waits for a command from the user and sends it to commandParser()
 void promptForCommand()
 {
 	printf("Please input a command: ");
-	cin.clear();
-	cin.ignore(INT_MAX, '\n');
 	cin >> command;
 	commandParser(command);
 }
@@ -255,4 +253,57 @@ Finds the best match motif using random loci
 void randomMotifFinder()
 {
 	printf("Random Motif Finder Not Yet Implemented...\n");
+	setNucleotideCount();
+	printf("Total Nucleotides: %d\n", nucleotideCount);
+	printf("Total A Nucleotides: %d\n", tideCount[ATIDE]);
+	printf("Probability of A is: %f\n", tideProbability[ATIDE]);
+	printf("Total T Nucleotides: %d\n", tideCount[TTIDE]);
+	printf("Probability of T is: %f\n", tideProbability[TTIDE]);
+	printf("Total G Nucleotides: %d\n", tideCount[GTIDE]);
+	printf("Probability of G is: %f\n", tideProbability[GTIDE]);
+	printf("Total C Nucleotides: %d\n", tideCount[CTIDE]);
+	printf("Probability of C is: %f\n", tideProbability[CTIDE]);
+	//determine the number of A,T,C,G in each sequence and output the odds
+	//while time < timeout repeat these steps:
+	//create a list of random loci for each sequence in sequences
+	//determine the best motif and the corresponding
+	//profile for given loci in Sequences.
+}
+
+void setNucleotideCount()
+{
+	//set counts to 0
+	nucleotideCount = 0;
+	memset(tideCount, 0, sizeof(int) * sizeof(tideCount));
+
+	//count the total number of a,t,g,c in all sequences
+	for (int i = 0; i < numSequences; i++)
+	{
+		for (int j = 0; j < strlen(sequences[i]); j++)
+		{
+			if (sequences[i][j] == 'a' || sequences[i][j] == 'A')
+			{
+				tideCount[ATIDE]++;
+			}
+			else if (sequences[i][j] == 't' || sequences[i][j] == 'T')
+			{
+				tideCount[TTIDE]++;
+			}
+			else if (sequences[i][j] == 'g' || sequences[i][j] == 'G')
+			{
+				tideCount[GTIDE]++;
+			}
+			else if (sequences[i][j] == 'c' || sequences[i][j] == 'C')
+			{
+				tideCount[CTIDE]++;
+			}
+			nucleotideCount++;
+		}
+	}
+
+	//calculate the nucleotide probability for a,t,g,c
+	for (int i = 0; i < 4; i++)
+	{
+		tideProbability[i] = (float)tideCount[i] / (float)nucleotideCount;
+	}
 }
