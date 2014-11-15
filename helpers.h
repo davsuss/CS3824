@@ -6,7 +6,12 @@
 
 double LogLikelihood(char ** kmers, int num_kmers);
 
-
+typedef struct _ProfileMatrix {
+    int * a;
+    int * t;
+    int * g;
+    int * c;
+} ProfileMatrix;
 
 
 
