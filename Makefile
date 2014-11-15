@@ -1,6 +1,6 @@
 #
 
-CC = gcc
+CC = g++
 # CFLAGS = -Wall -O3 -Werror
 # for debugging
 CFLAGS = -Wall -g -Werror
