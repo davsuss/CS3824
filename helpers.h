@@ -4,15 +4,16 @@
 #include <string.h>
 #include "stdlib.h"
 
-double LogLikelihood(char ** kmers, int num_kmers);
-
-typedef struct _ProfileMatrix {
+typedef struct _Matrix {
     int * a;
     int * t;
     int * g;
     int * c;
-} ProfileMatrix;
+} Matrix;
 
 
+void Matrix_init(Matrix * matrix, int k);
+
+double LogLikelihood(Matrix * profile_matrix, Matrix * probability_matrix);
 
 #endif
