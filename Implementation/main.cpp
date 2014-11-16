@@ -2,6 +2,7 @@
 #include "init.h"
 #include <iostream>
 #include <stdio.h>
+#include <ostream>
 #include <string.h>
 using namespace std;
 #define DEBUG
@@ -11,7 +12,8 @@ int main(int argc,char* argv[]) {
 	char* fastaFile="";
 	int dontCares = 0;
 	int time = 2;
-	int length = 0;
+	int length = 0; 
+	Probability prob;
 	for (int i = 1; i < argc; i+=2)
 	{
 		
@@ -53,7 +55,12 @@ int main(int argc,char* argv[]) {
 		}
 	#endif
 
-	
+		prob.processSequences(sequences);
+		
+#ifdef DEBUG
+		prob.print(&cout);
+#endif
+
 		getchar();
 
 

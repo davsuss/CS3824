@@ -10,8 +10,7 @@ class Profile {
 	public:
 		Profile(int motiflength);
 		void processMotifs(vector<string>* motifs, int motifLength);
-		char getMostCommon(int location);
-
+		int getCount(char nucleotide,int location);
 };
 
 #endif

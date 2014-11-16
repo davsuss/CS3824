@@ -9,14 +9,12 @@ using namespace std;
 
 typedef struct __motifResults {
 	vector<int> * locations;
-	string motif;
+	char*  motif;
 	double log_likelyhood;
 }motifResults;
 
-double calculateLogLikelyhood(Probability prob,Profile prof, string motif);
+double calculateLogLikelyhood(int numberOfSequences,Probability prob,Profile prof, char* motif);
 motifResults* randomMotifFinder(vector<string>* sequences);
 vector<int>* randomLociCalc(vector<string>* sequences,int k);
-
-
 
 #endif
