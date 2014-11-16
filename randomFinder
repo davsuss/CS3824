@@ -7,7 +7,7 @@
 //Output to file (TODO),
 //Command line parser,
 //fasta file parser,
-//command line interface with exit (x) command.
+//command line interface with exit (x) command
 
 #include <iostream>
 #include <string>
