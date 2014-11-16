@@ -7,11 +7,34 @@ void Matrix_init(Matrix * profile_matrix, int k) {
     profile_matrix->g = (int*)malloc(sizeof(int) * k);
 }
 
-double LogLikelihood(Matrix * profile_matrix, Matrix * probability_matrix) {
-
-
-
-    return 0;
+double LogLikelihood(Matrix * profile_matrix, Matrix * probability_matrix, char * motif, int n) {
+    int i, prof;
+    double prob;
+    double ll = 0;
+    int len = strlen(motif);
+    for (i = 0; i < len; i++) {
+        if (motif[i] == '*') {
+            continue;
+        }
+        else if (motif[i] == 'a') {
+            prof = profile_matrix->a[i];
+            prob = probability_matrix->a[0];
+        }
+        else if (motif[i] == 't') {
+            prof = profile_matrix->t[i];
+            prob = probability_matrix->t[0];
+        }
+        else if (motif[i] == 'g') {
+            prof = profile_matrix->g[i];
+            prob = probability_matrix->g[0];
+        }
+        else if (motif[i] == 'c') {
+            prof = profile_matrix->c[i];
+            prob = probability_matrix->c[0];
+        }
+        ll += ((prof / n) / prob);
+    }
+    return ll;
 }
 
 
