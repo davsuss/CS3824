@@ -4,11 +4,11 @@
 #ifndef PROFILEH
 #define PROFILEH
 using namespace std;
-typedef struct profChar{
+typedef struct _profChar{
 	char base;
 	int location;
 	int number;
-};
+} profChar;
 
 
 class Profile {

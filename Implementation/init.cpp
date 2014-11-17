@@ -90,7 +90,7 @@ vector<char*>* readFasta(char* filename)
 				return nullptr;
 			}
 			hasHeader = false; //reset flag
-			sequences->push_back(_strdup(buf)); //any memory issues with strdup are being ignored
+			sequences->push_back(strdup(buf)); //any memory issues with strdup are being ignored
 		}
 	}
 
