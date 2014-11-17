@@ -1,16 +1,17 @@
 #include "Helper.h"
 #include <math.h>
+#include <ctime>
 
 
-vector<int>* randomLociCalc(vector<string>* sequences,int k) {
-	vector<int> * results = new vector<int>();
-
-	for (int i = 0; i < sequences->size(); i++)
+vector<int>* randomLociCalc(vector<char*>* sequences,int k) {
+	int l = 0;
+	vector<int> loci(k);
+	for (int i = 0; i < (*sequences).size(); i++)
 	{
-		results->push_back(rand() % (sequences->at(i).size() - k));
+		srand(time(NULL));
+		loci[l] = rand() % (strlen((*sequences)[i]) - k + 1);
 	}
-	return results;
-
+	return &loci;
 }
 
 double calculateLogLikelyhood(int numberOfSequences,Probability prob,Profile prof, char* motif) {
