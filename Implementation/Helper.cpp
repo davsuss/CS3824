@@ -23,19 +23,19 @@ double calculateLogLikelyhood(int numberOfSequences,Probability prob,Profile pro
             continue;
         }
         else if (motif[i] == 'a') {
-            prof_val = prof.getCount('a', i);
+            prof_val = prof.getHighest(i)->number;
             prob_val = prob.getProbability('a');
         }
         else if (motif[i] == 't') {
-            prof_val = prof.getCount('t', i);
+            prof_val = prof.getHighest(i)->number;
             prob_val = prob.getProbability('t');
         }
         else if (motif[i] == 'g') {
-            prof_val = prof.getCount('g', i);
+            prof_val = prof.getHighest(i)->number;
             prob_val = prob.getProbability('g');
         }
         else if (motif[i] == 'c') {
-            prof_val = prof.getCount('c', i);
+            prof_val = prof.getHighest(i)->number;
             prob_val = prob.getProbability('c');
         }
         else {
