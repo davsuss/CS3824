@@ -46,3 +46,24 @@ double calculateLogLikelyhood(int numberOfSequences,Probability prob,Profile pro
     }
     return ll;
 }
+
+char * setDontCares(motifResults * motifData, int d) {
+    int i, j, pos;
+    char * motif = (char*) malloc(sizeof(strlen(motifData->motif)));
+    strcpy(motif, motifData->motif);
+    for (i = 0; i < d; i++) {
+        pos = -1;
+        for (j = 0; j < strlen(motifData->motif); j++) {
+            if (motif[j] != '*') {
+                if (pos < 0) {
+                    pos = j;
+                }
+                else if (motifData->locations[pos] > motifData->locations[j]) {
+                    pos = j;
+                }
+            }
+        }
+        motif[pos] = '*';
+    }
+    return motif;
+}

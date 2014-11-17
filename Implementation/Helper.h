@@ -1,5 +1,6 @@
 #include "Probability.h"
 #include "Profile.h"
+#include <string.h>
 #include <string>
 #include <vector>
 using namespace std;
@@ -12,6 +13,8 @@ typedef struct __motifResults {
 	char*  motif;
 	double log_likelyhood;
 }motifResults;
+
+char * setDontCares(motifResults * motifData, int d);
 
 double calculateLogLikelyhood(int numberOfSequences,Probability prob,Profile prof, char* motif);
 motifResults* randomMotifFinder(vector<char*>* sequences);
