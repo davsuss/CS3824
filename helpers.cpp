@@ -16,19 +16,19 @@ double LogLikelihood(Matrix * profile_matrix, Matrix * probability_matrix, char 
         if (motif[i] == '*') {
             continue;
         }
-        else if (motif[i] == 'a') {
+        else if (motif[i] == 'A') {
             prof = profile_matrix->a[i];
             prob = probability_matrix->a[0];
         }
-        else if (motif[i] == 't') {
+        else if (motif[i] == 'T') {
             prof = profile_matrix->t[i];
             prob = probability_matrix->t[0];
         }
-        else if (motif[i] == 'g') {
+        else if (motif[i] == 'G') {
             prof = profile_matrix->g[i];
             prob = probability_matrix->g[0];
         }
-        else if (motif[i] == 'c') {
+        else if (motif[i] == 'C') {
             prof = profile_matrix->c[i];
             prob = probability_matrix->c[0];
         }

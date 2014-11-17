@@ -22,21 +22,21 @@ double calculateLogLikelyhood(int numberOfSequences,Probability prob,Profile pro
         if (motif[i] == '*') {
             continue;
         }
-        else if (motif[i] == 'a') {
+        else if (motif[i] == 'A') {
             prof_val = prof.getHighest(i)->number;
-            prob_val = prob.getProbability('a');
+            prob_val = prob.getProbability('A');
         }
-        else if (motif[i] == 't') {
+        else if (motif[i] == 'T') {
             prof_val = prof.getHighest(i)->number;
-            prob_val = prob.getProbability('t');
+            prob_val = prob.getProbability('T');
         }
-        else if (motif[i] == 'g') {
+        else if (motif[i] == 'G') {
             prof_val = prof.getHighest(i)->number;
-            prob_val = prob.getProbability('g');
+            prob_val = prob.getProbability('G');
         }
-        else if (motif[i] == 'c') {
+        else if (motif[i] == 'C') {
             prof_val = prof.getHighest(i)->number;
-            prob_val = prob.getProbability('c');
+            prob_val = prob.getProbability('C');
         }
         else {
             printf("ERROR in calculating loglikelihood\n");
