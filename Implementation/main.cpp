@@ -14,6 +14,7 @@ int main(int argc,char* argv[]) {
 	int time = 2;
 	int length = 0; 
 	Probability prob;
+	
 	for (int i = 1; i < argc; i+=2)
 	{
 		
@@ -22,13 +23,13 @@ int main(int argc,char* argv[]) {
 				// We know the next argument *should* be the filename:
 				fastaFile = argv[i + 1];
 			}
-			else if (strcmp(argv[i], "-d")) {
+			else if (strcmp(argv[i], "-d") == 0) {
 				dontCares = atoi(argv[i + 1]);
 			}
-			else if (strcmp(argv[i], "-k")) {
+			else if (strcmp(argv[i], "-k") == 0) {
 				length = atoi(argv[i + 1]);
 			}
-			else if (strcmp(argv[i], "-t")) {
+			else if (strcmp(argv[i], "-t" ) == 0) {
 				time = atoi(argv[i + 1]);
 			}
 			else {
@@ -38,6 +39,10 @@ int main(int argc,char* argv[]) {
 			}
 		}
 	}
+
+
+	Profile prof(length);
+
 	#ifdef DEBUG
 		cout << "Settings: Time:" << time << " Dont Cares: " << time << " Length " << length << endl;
 	#endif
@@ -54,12 +59,17 @@ int main(int argc,char* argv[]) {
 			cout << sequences->at(i) << endl;
 		}
 	#endif
-
+		prof.processMotifs(sequences, length);
 		prob.processSequences(sequences);
 		
-#ifdef DEBUG
-		prob.print(&cout);
-#endif
+	#ifdef DEBUG
+			prob.print(&cout);
+			cout << endl;
+			prof.print(&cout);
+	#endif
+
+
+
 
 		getchar();
 
