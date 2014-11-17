@@ -14,7 +14,7 @@ typedef struct __motifResults {
 }motifResults;
 
 double calculateLogLikelyhood(int numberOfSequences,Probability prob,Profile prof, char* motif);
-motifResults* randomMotifFinder(vector<string>* sequences);
-vector<int>* randomLociCalc(vector<string>* sequences,int k);
+motifResults* randomMotifFinder(vector<char*>* sequences);
+vector<int>* randomLociCalc(vector<char*>* sequences,int k);
 
 #endif
