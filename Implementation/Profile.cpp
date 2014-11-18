@@ -72,10 +72,12 @@ void Profile::processMotifs(vector<char*>* motifs){
 
 char * Profile::generateMotif() {
 	int i;
-	char * motif = (char*) malloc(sizeof(char) * _motifLength + 1);
+	char * motif = new char[_motifLength + 1];
+	motif[_motifLength + 1] = '\0';
 	for (i = 0; i < _motifLength; i++) {
 		motif[i] = profile->get(0, i)->base;
 	}
+	motif[_motifLength] = '\0';
 	return motif;
 }
 

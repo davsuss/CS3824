@@ -4,8 +4,9 @@
 #include <stdio.h>
 #include <ostream>
 #include <string.h>
+#include "Helper.h"
 using namespace std;
-#define DEBUG
+
 
 int main(int argc,char* argv[]) {
 
@@ -13,7 +14,7 @@ int main(int argc,char* argv[]) {
 	int dontCares = 0;
 	int time = 2;
 	int length = 0; 
-	Probability prob;
+
 	
 	for (int i = 1; i < argc; i+=2)
 	{
@@ -41,7 +42,7 @@ int main(int argc,char* argv[]) {
 	}
 
 
-	Profile prof(length);
+	
 
 	#ifdef DEBUG
 		cout << "Settings: Time:" << time << " Dont Cares: " << time << " Length " << length << endl;
@@ -59,18 +60,7 @@ int main(int argc,char* argv[]) {
 			cout << sequences->at(i) << endl;
 		}
 	#endif
-		prof.processMotifs(sequences, length);
-		prob.processSequences(sequences);
-		
-	#ifdef DEBUG
-			prob.print(&cout);
-			cout << endl;
-			prof.print(&cout);
-	#endif
-
-
-
-
+		motifResults * results = randomMotifFinder(sequences, length, dontCares);
 		getchar();
 
 

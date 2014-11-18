@@ -3,9 +3,10 @@
 #include <string.h>
 #include <string>
 #include <vector>
+#include <iostream>
 using namespace std;
 #ifndef HELPERH
-
+#define DEBUG
 #define HELPERH
 
 typedef struct __motifResults {
@@ -15,10 +16,10 @@ typedef struct __motifResults {
     Profile * profile;
 } motifResults;
 
-char * setDontCares(motifResults * motifData, int d);
+void setDontCares(motifResults * motifData, int d);
 
 double calculateLogLikelyhood(int numberOfSequences,Probability prob,Profile prof, char* motif);
-motifResults* randomMotifFinder(vector<char*>* sequences);
+motifResults* randomMotifFinder(vector<char*>* sequences,int k, int d);
 vector<int>* randomLociCalc(vector<char*>* sequences,int k);
-vector<char*>* grabMotif(vector<int>* locations, vector<char*>* sequences, int k, int d);
+motifResults*  grabMotif(Probability * prob, vector<int>* locations, vector<char*>* sequences, int k, int d);
 #endif
