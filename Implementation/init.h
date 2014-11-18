@@ -5,7 +5,7 @@
 using namespace std;
 
 
-#define MAXSEQUENCELENGTH 100
+#define MAXSEQUENCELENGTH 300
 
 bool isvalidFasta(char filename[]);
 void commandParser(char newCommand);

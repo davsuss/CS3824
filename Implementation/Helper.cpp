@@ -1,22 +1,26 @@
 #include "Helper.h"
 #include <math.h>
 #include <ctime>
-
+#include <random>
 
 vector<int>* randomLociCalc(vector<char*>* sequences,int k) {
 	vector<int>* loci = new  vector<int>(sequences->size());
+	std::random_device rd;
+	std::mt19937 eng(rd());
+	std::uniform_int_distribution<> dist(0, 30000);
 	for (int i = 0; i < (*sequences).size(); i++)
 	{
-		srand(3);
-		loci->at(i) = rand() % (strlen(sequences->at(i)) - k + 1);
+		
+		
+		loci->at(i) = dist(eng) % (strlen(sequences->at(i)) - k );
 	}
 	return loci;
 }
 
 double calculateLogLikelyhood(int numberOfSequences,Probability* prob,Profile* prof, char* motif) {
     double ll = 0;
-    int i, prof_val, len;
-    double prob_val;
+    int i, len;
+	double prob_val, prof_val;
     len = strlen(motif);
     for (i = 0; i < len; i++) {
         if (motif[i] == '*') {
@@ -41,19 +45,24 @@ double calculateLogLikelyhood(int numberOfSequences,Probability* prob,Profile* p
         else {
             printf("ERROR in calculating loglikelihood\n");
         }
-        ll += ((prof_val / numberOfSequences) / prob_val);
+        ll += log2((prof_val / numberOfSequences) / prob_val);
     }
+	
     return ll;
 }
 
 motifResults * grabMotif(Probability * prob,vector<int>* locations, vector<char*>* sequences, int k, int d) {
     Profile * prof = new Profile(k);
     motifResults * results = (motifResults*) malloc(sizeof(motifResults));
+
+	results->locations = locations;
+	results->log_likelyhood = 0.0;
     results->profile = prof;
     int i, size;
     size = sequences->size();
     for (i = 0; i < size; i++) {
         sequences->at(i) = sequences->at(i) + locations->at(i);
+
     }
 
     results->profile->processMotifs(sequences);
@@ -69,22 +78,28 @@ motifResults * grabMotif(Probability * prob,vector<int>* locations, vector<char*
 
 #ifdef DEBUG
 	cout << "MOTIF BEFORE DONT CARES:" << results->motif << endl;
+	cout << results->log_likelyhood;
 #endif
 	
 	
-	setDontCares(results, d);
+setDontCares(results, d);
 
 #ifdef DEBUG
 	cout << "MOTIF AFTER DONT CARES:" << results->motif << endl;
+	cout << results->log_likelyhood;
 #endif
 	results->log_likelyhood = calculateLogLikelyhood(sequences->size(), prob, prof, results->motif);
-    return results;
+    
+
+	
+	return results;
 }
 
 void setDontCares(motifResults * motifData, int d) {
     int i, j, pos;
-    char * motif = (char*) malloc(sizeof(strlen(motifData->motif)));
-    strcpy_s(motif,300,motifData->motif);
+    char * motif = (char*) malloc(sizeof(strlen(motifData->motif))+1);
+	strcpy_s(motif, strlen(motifData->motif)+1, motifData->motif);
+	motif[strlen(motifData->motif) + 1] = '\0';
     for (i = 0; i < d; i++) {
         pos = -1;
         for (j = 0; j < strlen(motifData->motif); j++) {
@@ -99,7 +114,8 @@ void setDontCares(motifResults * motifData, int d) {
         }
         motif[pos] = '*';
     }
-    motifData->motif = motif;
+	motifData->motif = motif;
+
 }
 
 motifResults* randomMotifFinder(vector<char*>* sequences,int k , int d){
@@ -117,7 +133,7 @@ motifResults* randomMotifFinder(vector<char*>* sequences,int k , int d){
 		cout << "SEQUENCE " << i << ": " << loci->at(i) << endl;
 	}
 #endif
-
-	motifResults * results = grabMotif(prob, loci, sequences, k, d);
+		motifResults * results = grabMotif(prob, loci, sequences, k, d);
+		
 	return results;
 }

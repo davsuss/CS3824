@@ -7,6 +7,18 @@
 #include "Helper.h"
 using namespace std;
 
+void printResults(int k, int d, motifResults* results) {
+	cout << "Best Motif of length " << k << "with " << d << "don't cares is " << results->motif << endl;
+	cout << "Log likelyhood is " << results->log_likelyhood << endl;
+	cout << "Loci of the best motif are here:" << endl;
+	for (int i = 0; i < results->locations->size(); i++){
+		cout << results->locations->at(i) << endl;
+	}
+
+
+}
+
+
 
 int main(int argc,char* argv[]) {
 
@@ -60,17 +72,14 @@ int main(int argc,char* argv[]) {
 			cout << sequences->at(i) << endl;
 		}
 	#endif
-		motifResults * results = randomMotifFinder(sequences, length, dontCares);
+		motifResults* biggest = new motifResults();
+		biggest->log_likelyhood = 0;
+	
+			motifResults * results = randomMotifFinder(sequences, length, dontCares);
+			//cout << results->motif << " " << results->log_likelyhood << endl;
+			printResults(length, dontCares, results);
+		
 		getchar();
-
-
-	
-	
-
-
-
-
-
 	return 0;
 
 }

@@ -6,7 +6,7 @@
 #include <iostream>
 using namespace std;
 #ifndef HELPERH
-#define DEBUG
+//#define DEBUG
 #define HELPERH
 
 typedef struct __motifResults {
