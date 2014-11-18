@@ -47,6 +47,21 @@ double calculateLogLikelyhood(int numberOfSequences,Probability prob,Profile pro
     return ll;
 }
 
+motifResults * grabMotif(vector<int>* locations, vector<char*>* sequences, int k, int d) {
+    Profile * prof = new Profile(k);
+    motifResults * results = (motifResults*) malloc(sizeof(motifResults));
+    results->profile = prof;
+    int i, size;
+    size = sequences->size();
+    for (i = 0; i < size; i++) {
+        sequences->at(i) = sequences->at(i) + locations->at(i);
+    }
+    results->profile->processMotifs(sequences);
+    char * motif = results->profile->generateMotif();
+    motif = setDontCares(results, d);
+    return results;
+}
+
 char * setDontCares(motifResults * motifData, int d) {
     int i, j, pos;
     char * motif = (char*) malloc(sizeof(strlen(motifData->motif)));
@@ -58,12 +73,13 @@ char * setDontCares(motifResults * motifData, int d) {
                 if (pos < 0) {
                     pos = j;
                 }
-                else if (motifData->locations[pos] > motifData->locations[j]) {
+                else if (motifData->profile->getHighest(pos) > motifData->profile->getHighest(j)) {
                     pos = j;
                 }
             }
         }
         motif[pos] = '*';
     }
+    motifData->motif = motif;
     return motif;
 }

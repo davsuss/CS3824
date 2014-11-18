@@ -4,20 +4,20 @@ Profile::Profile(int motifLength){
 	profile = new Matrix<profChar*>(1, motifLength, 0);
 	_motifLength = motifLength;
 }
-void Profile::processMotifs(vector<char*>* motifs, int motifLength){
+void Profile::processMotifs(vector<char*>* motifs){
 	int length = motifs->size();
 	
 	int countA = 0;
-	int countG  =0;
+	int countG = 0;
 	int countT = 0;
 	int countC = 0;
-	for (int y = 0; y < motifLength; y++)
+	for (int y = 0; y < _motifLength; y++)
 	{
 		profChar * x = new profChar();
-		int countA = 0;
-		int countG = 0;
-		int countT = 0;
-		int countC = 0;
+		countA = 0;
+		countG = 0;
+		countT = 0;
+		countC = 0;
 		for (int i = 0; i < length; i++)
 		{
 			switch (motifs->at(i)[y])
@@ -68,10 +68,17 @@ void Profile::processMotifs(vector<char*>* motifs, int motifLength){
 		profile->set(x, 0, y);
 
 	}
-
-
-
 }
+
+char * Profile::generateMotif() {
+	int i;
+	char * motif = (char*) malloc(sizeof(char) * _motifLength + 1);
+	for (i = 0; i < _motifLength; i++) {
+		motif[i] = profile->get(0, i)->base;
+	}
+	return motif;
+}
+
 profChar* Profile::getHighest(int location){
 	return profile->get(0, location);
 }

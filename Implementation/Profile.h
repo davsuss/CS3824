@@ -17,7 +17,8 @@ class Profile {
 	int _motifLength;
 	public:
 		Profile(int motiflength);
-		void processMotifs(vector<char*>* motifs, int motifLength);
+		void processMotifs(vector<char*>* motifs);
+        char * generateMotif();
 		profChar* getHighest(int location);
 		void print(ostream* o);
 };
