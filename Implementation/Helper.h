@@ -18,6 +18,8 @@ typedef struct __motifResults {
 
 void setDontCares(motifResults * motifData, int d);
 
+void startTimer(int seconds);
+
 double calculateLogLikelyhood(int numberOfSequences,Probability prob,Profile prof, char* motif);
 motifResults* randomMotifFinder(vector<char*>* sequences,int k, int d);
 vector<int>* randomLociCalc(vector<char*>* sequences,int k);

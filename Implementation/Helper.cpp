@@ -3,6 +3,11 @@
 #include <ctime>
 #include <random>
 
+void startTimer(int seconds) {
+    wait(1000 * seconds);
+    // TODO: pass message to queue to indicate a timeout
+}
+
 vector<int>* randomLociCalc(vector<char*>* sequences,int k) {
 	vector<int>* loci = new  vector<int>(sequences->size());
 	std::random_device rd;
