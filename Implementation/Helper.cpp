@@ -90,7 +90,10 @@ setDontCares(results, d);
 #endif
 	results->log_likelyhood = calculateLogLikelyhood(sequences->size(), prob, prof, results->motif);
     
+    for (i = 0; i < size; i++) {
+        sequences->at(i) = sequences->at(i) - locations->at(i);
 
+    }
 	
 	return results;
 }
