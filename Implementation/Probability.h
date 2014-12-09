@@ -4,15 +4,15 @@
 #include <vector>
 #include <ostream>
 
-// using namespace std;
+#define A_INDEX 0
+#define C_INDEX 1
+#define G_INDEX 2
+#define T_INDEX 3
+
 class Probability {
 
 private:
-	Matrix<double>* matrix;
-	const int A_INDEX = 0;
-	const int C_INDEX = 1;
-	const int G_INDEX = 2;
-	const int T_INDEX = 3;
+    Matrix<double>* matrix;
 
 public:
 	Probability();
