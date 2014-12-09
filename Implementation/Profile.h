@@ -1,9 +1,9 @@
+#ifndef PROFILEH
+#define PROFILEH
 #include "Matrix.h"
 #include <vector>
 #include <ostream>
-#ifndef PROFILEH
-#define PROFILEH
-using namespace std;
+// using namespace std;
 typedef struct _profChar{
 	char base;
 	int location;
@@ -17,10 +17,10 @@ class Profile {
 	int _motifLength;
 	public:
 		Profile(int motiflength);
-		void processMotifs(vector<char*>* motifs);
+		void processMotifs(std::vector<char*>* motifs);
         char * generateMotif();
 		profChar* getHighest(int location);
-		void print(ostream* o);
+		void print(std::ostream* o);
 };
 
 #endif

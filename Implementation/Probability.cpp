@@ -1,5 +1,6 @@
 #include "Probability.h"
 
+using namespace std;
 
 Probability::Probability() {
 	matrix = new Matrix<double>(4,1,0.0);

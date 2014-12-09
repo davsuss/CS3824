@@ -1,16 +1,20 @@
+#ifndef HELPERH
+#define HELPERH
+
 #include "Probability.h"
 #include "Profile.h"
-#include <string.h>
+#include <string.h> 
+#include <unistd.h> 
 #include <string>
 #include <vector>
 #include <iostream>
-using namespace std;
-#ifndef HELPERH
-//#define DEBUG
-#define HELPERH
+#include <math.h>
+#include <ctime>
+#include <random>
+
 
 typedef struct __motifResults {
-	vector<int> * locations;
+	std::vector<int> * locations;
 	char*  motif;
 	double log_likelyhood;
     Profile * profile;
@@ -21,7 +25,7 @@ void setDontCares(motifResults * motifData, int d);
 void startTimer(int seconds);
 
 double calculateLogLikelyhood(int numberOfSequences,Probability prob,Profile prof, char* motif);
-motifResults* randomMotifFinder(vector<char*>* sequences,int k, int d);
-vector<int>* randomLociCalc(vector<char*>* sequences,int k);
-motifResults*  grabMotif(Probability * prob, vector<int>* locations, vector<char*>* sequences, int k, int d);
+motifResults* randomMotifFinder(std::vector<char*>* sequences,int k, int d);
+std::vector<int>* randomLociCalc(std::vector<char*>* sequences,int k);
+motifResults*  grabMotif(Probability * prob, std::vector<int>* locations, std::vector<char*>* sequences, int k, int d);
 #endif

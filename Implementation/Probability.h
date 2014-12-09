@@ -1,10 +1,10 @@
+#ifndef ProbabilityH
+#define ProbabilityH
 #include "Matrix.h"
 #include <vector>
 #include <ostream>
-#ifndef ProbabilityH
-#define ProbabilityH
 
-using namespace std;
+// using namespace std;
 class Probability {
 
 private:
@@ -16,9 +16,9 @@ private:
 
 public:
 	Probability();
-	void processSequences(vector<char*>* sequences);
+	void processSequences(std::vector<char*>* sequences);
 	double getProbability(char base);
-	void print(ostream *o);
+	void print(std::ostream *o);
 };
 
 

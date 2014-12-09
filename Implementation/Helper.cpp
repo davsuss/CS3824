@@ -1,10 +1,9 @@
 #include "Helper.h"
-#include <math.h>
-#include <ctime>
-#include <random>
+
+using namespace std;
 
 void startTimer(int seconds) {
-    wait(1000 * seconds);
+    sleep(seconds);
     // TODO: pass message to queue to indicate a timeout
 }
 
@@ -106,7 +105,7 @@ setDontCares(results, d);
 void setDontCares(motifResults * motifData, int d) {
     int i, j, pos;
     char * motif = (char*) malloc(sizeof(strlen(motifData->motif))+1);
-	strcpy_s(motif, strlen(motifData->motif)+1, motifData->motif);
+	strcpy(motif, motifData->motif);
 	motif[strlen(motifData->motif) + 1] = '\0';
     for (i = 0; i < d; i++) {
         pos = -1;

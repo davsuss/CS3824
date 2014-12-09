@@ -1,5 +1,7 @@
 #include "Profile.h"
 
+using namespace std;
+
 Profile::Profile(int motifLength){
 	profile = new Matrix<profChar*>(1, motifLength, 0);
 	_motifLength = motifLength;
