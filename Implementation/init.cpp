@@ -53,7 +53,7 @@ vector<char*>* readFasta(char* filename)
 	if (!infile.good())
 	{
 		printf("System failed to load file.\n");
-		return nullptr;
+		return NULL;
 	}
 
 	//read the file line by line until the end of file
@@ -76,7 +76,7 @@ vector<char*>* readFasta(char* filename)
 			if (hasHeader)
 			{
 			//	printf("FASTA read error: two headers with no sequence.\n");
-				return nullptr;
+				return NULL;
 			}
 			hasHeader = true; //set flag
 		}
@@ -85,7 +85,7 @@ vector<char*>* readFasta(char* filename)
 			if (!hasHeader)
 			{
 			//	printf("FASTA read error: sequence with no header.\n");
-				return nullptr;
+				return NULL;
 			}
 			hasHeader = false; //reset flag
 			sequences->push_back(strdup(buf)); //any memory issues with strdup are being ignored

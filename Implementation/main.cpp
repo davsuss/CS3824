@@ -5,6 +5,7 @@
 #include <ostream>
 #include <string.h>
 #include "Helper.h"
+#include <stdlib.h>
 using namespace std;
 
 void printResults(int k, int d, motifResults* results) {
@@ -22,7 +23,7 @@ void printResults(int k, int d, motifResults* results) {
 
 int main(int argc,char* argv[]) {
 
-	char* fastaFile="";
+	char* fastaFile;
 	int dontCares = 0;
 	int time = 2;
 	int length = 0; 
@@ -60,7 +61,7 @@ int main(int argc,char* argv[]) {
 		cout << "Settings: Time:" << time << " Dont Cares: " << time << " Length " << length << endl;
 	#endif
 		vector<char*>* sequences = readFasta(fastaFile);
-		if (sequences == nullptr)
+		if (sequences == NULL)
 		{
 			cout << "Failed to open file: " << fastaFile;
 			return -1;
