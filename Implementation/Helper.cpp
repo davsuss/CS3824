@@ -9,14 +9,11 @@ void startTimer(int seconds) {
 
 vector<int>* randomLociCalc(vector<char*>* sequences,int k) {
 	vector<int>* loci = new  vector<int>(sequences->size());
-	std::random_device rd;
-	std::mt19937 eng(rd());
-	std::uniform_int_distribution<> dist(0, 30000);
-	for (int i = 0; i < (*sequences).size(); i++)
-	{
-		
-		
-		loci->at(i) = dist(eng) % (strlen(sequences->at(i)) - k );
+    srand(time(NULL));
+    for (int i = 0; i < (*sequences).size(); i++)
+    {
+		loci->at(i) = (rand() % 100) % (strlen(sequences->at(i)) - k );
+        // srand(1);
 	}
 	return loci;
 }

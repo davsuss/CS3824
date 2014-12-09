@@ -10,8 +10,7 @@
 #include <iostream>
 #include <math.h>
 #include <ctime>
-#include <random>
-
+#include <stdlib.h>
 
 typedef struct __motifResults {
 	std::vector<int> * locations;
