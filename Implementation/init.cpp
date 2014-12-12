@@ -57,8 +57,8 @@ vector<char*>* readFasta(char* filename)
 	}
 
 	//read the file line by line until the end of file
-	bool hasHeader = false; //flag for header/sequence error
-
+	int length;
+	char * sequence;
 	while (!infile.eof())
 	{
 		//read a line of max sequence length
@@ -73,23 +73,20 @@ vector<char*>* readFasta(char* filename)
 		}
 		if (buf[0] == '>') //if the line is a header
 		{
-			if (hasHeader)
-			{
-			//	printf("FASTA read error: two headers with no sequence.\n");
-				return NULL;
+			if (sequence != NULL) {
+				sequences->push_back(sequence); //any memory issues with strdup are being ignored
 			}
-			hasHeader = true; //set flag
+
+			sscanf(buf, ">%*s length %i", &length);
+			sequence = (char*)malloc(length + 1);
 		}
 		else //assume its a sequence
 		{
-			if (!hasHeader)
-			{
-			//	printf("FASTA read error: sequence with no header.\n");
-				return NULL;
-			}
-			hasHeader = false; //reset flag
-			sequences->push_back(strdup(buf)); //any memory issues with strdup are being ignored
+			strcat(sequence, buf);
 		}
+	}
+	if (sequence != NULL) {
+		sequences->push_back(sequence); //any memory issues with strdup are being ignored
 	}
 
 	//file parse completed
