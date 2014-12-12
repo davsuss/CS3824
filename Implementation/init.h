@@ -5,11 +5,12 @@
 #include <iostream>
 #include <fstream>
 #include <limits.h>
+#include "Queue.h"
+#include "Helper.h"
 using namespace std;
 
 
-#define MAXSEQUENCELENGTH 300
-
+void motif_thread_start(int length, int dont_cares, vector<char*>* sequences, ConcurrentQueue<motifResults*> * queue, int seed);
 bool isvalidFasta(char filename[]);
 void commandParser(char newCommand);
 vector<char*>* readFasta(char* filename);

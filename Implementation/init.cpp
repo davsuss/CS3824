@@ -1,45 +1,10 @@
 #include "init.h"
 
-
-//bool isvalidFasta(string filename) {
-//
-//	char fasta[] = ".fasta";
-//	int j = 5;
-//	for (unsigned int i = filename.length() - 1; i > filename.length() - 6; i--)
-//	{
-//		if (filename[i] != fasta[j--])
-//		{
-//			//printf("Error parsing file name: %c does not match %c", &filename[i], fasta[j + 1]);
-//			// printf("Error parsing file name (%s): file must end with .fasta", &filename[i], fasta[j + 1]);
-//			return false;
-//		}
-//	}
-//	//fastaFile = &filename[0];
-//	return true;
-//
-//
-//}
-void commandParser(char newCommand)
-{
-	if (newCommand == 'x')
-	{
-		exit(9);
-	}
-	else if (newCommand == 'r')
-	{
-//		randomMotifFinder();
-	}
-	else
-	{
-		printf("Possible commands:\n");
-		printf("x: E(x)its the program.\n");
-		printf("r: Run the (R)andom Motif Finder with current settings\n");
-	}
-
-	//Wait for a new command and send it
-	cin.clear();
-	cin.ignore(INT_MAX, '\n'); //ignore everything in the buffer up to newline
-//	promptForCommand();
+/* method called by new thread to calculate motif */
+void motif_thread_start(int length, int dont_cares, vector<char*>* sequences, ConcurrentQueue<motifResults*> * queue, int seed) {
+	motifResults * results = randomMotifFinder(sequences, length, dontCares);
+	//cout << results->motif << " " << results->log_likelyhood << endl;
+	printResults(length, dontCares, results);
 }
 
 vector<char*>* readFasta(char* filename)
@@ -62,8 +27,8 @@ vector<char*>* readFasta(char* filename)
 	while (!infile.eof())
 	{
 		//read a line of max sequence length
-		char buf[MAXSEQUENCELENGTH];
-		infile.getline(buf, MAXSEQUENCELENGTH, '\n');
+		char buf[1024];
+		infile.getline(buf, 1024, '\n');
 		
 
 		//parse the line, ignore blank spaces, check if its a header	
@@ -94,9 +59,3 @@ vector<char*>* readFasta(char* filename)
 	return sequences;
 }
 
-void promptForCommand()
-{
-	printf("Please input a command: ");
-//	cin >> command;
-	//BcommandParser(command);
-}
