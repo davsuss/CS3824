@@ -5,6 +5,7 @@ using namespace std;
 void startTimer(int seconds) {
     sleep(seconds);
     // TODO: pass message to queue to indicate a timeout
+    printf("time is up\n");
 }
 
 vector<int>* randomLociCalc(vector<char*>* sequences,int k) {

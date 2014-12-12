@@ -3,6 +3,7 @@
 #include "Matrix.h"
 #include <vector>
 #include <ostream>
+#include <string.h>
 
 #define A_INDEX 0
 #define C_INDEX 1

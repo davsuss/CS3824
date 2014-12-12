@@ -3,6 +3,8 @@
 #include <stdio.h>
 #include <ostream>
 #include "Helper.h"
+#include <thread>
+
 using namespace std;
 
 void printResults(int k, int d, motifResults* results) {
@@ -12,8 +14,6 @@ void printResults(int k, int d, motifResults* results) {
 	for (int i = 0; i < results->locations->size(); i++){
 		cout << results->locations->at(i) << endl;
 	}
-
-
 }
 
 
@@ -21,7 +21,7 @@ int main(int argc,char* argv[]) {
 
 	char* fastaFile;
 	int dontCares = 0;
-	int max_time = 2;
+	int max_time = 10;
 	int length = 0; 
 	srand(time(NULL));
 
@@ -50,8 +50,6 @@ int main(int argc,char* argv[]) {
 			}
 		}
 	}
-
-
 	
 
 	#ifdef DEBUG
@@ -73,10 +71,13 @@ int main(int argc,char* argv[]) {
 		motifResults* biggest = new motifResults();
 		biggest->log_likelyhood = 0;
 	
+		thread first (startTimer, max_time); // start timer thread
+
 			motifResults * results = randomMotifFinder(sequences, length, dontCares);
 			//cout << results->motif << " " << results->log_likelyhood << endl;
 			printResults(length, dontCares, results);
 		
+		first.join();
 		// getchar();
 	return 0;
 

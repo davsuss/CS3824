@@ -1,13 +1,15 @@
 #
 
-CC = g++
+CXX = g++
 # for debugging
-CFLAGS = -Wall -g -Werror
+CXXFLAGS = -Wall -g -std=c++11
 
 OBJS = main.o Helper.o Profile.o Probability.o init.o
 
+all: motif-finder
+
 motif-finder: $(OBJS)
-	$(CC) $(CFLAGS) -o motif-finder $(OBJS)
+	$(CXX) $(CXXFLAGS) -o motif-finder $(OBJS)
 
 
 main.o: main.cpp Helper.h init.h
