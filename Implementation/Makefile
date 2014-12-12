@@ -12,7 +12,7 @@ motif-finder: $(OBJS)
 	$(CXX) $(CXXFLAGS) -o motif-finder $(OBJS)
 
 
-main.o: main.cpp Helper.h init.h
+main.o: main.cpp Helper.h init.h Queue.h
 Helper.o: Helper.cpp Helper.h Profile.h Probability.h
 Profile.o: Profile.h Matrix.h
 Probability.o: Probability.h Probability.cpp Matrix.h
