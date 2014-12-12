@@ -8,6 +8,15 @@ void startTimer(int seconds) {
     printf("time is up\n");
 }
 
+void printResults(int k, int d, motifResults* results) {
+    cout << "Best Motif of length " << k << "with " << d << "don't cares is " << results->motif << endl;
+    cout << "Log likelyhood is " << results->log_likelyhood << endl;
+    cout << "Loci of the best motif are here:" << endl;
+    for (int i = 0; i < (int)results->locations->size(); i++){
+        cout << results->locations->at(i) << endl;
+    }
+}
+
 vector<int>* randomLociCalc(vector<char*>* sequences,int k) {
 	vector<int>* loci = new  vector<int>(sequences->size());
     

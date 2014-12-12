@@ -1,10 +1,10 @@
 #include "init.h"
 
 /* method called by new thread to calculate motif */
-void motif_thread_start(int length, int dont_cares, vector<char*>* sequences, ConcurrentQueue<motifResults*> * queue, int seed) {
-	motifResults * results = randomMotifFinder(sequences, length, dontCares);
+void motif_thread_start(int length, int dont_cares, vector<char*>* sequences, int seed) {
+	motifResults * results = randomMotifFinder(sequences, length, dont_cares);
 	//cout << results->motif << " " << results->log_likelyhood << endl;
-	printResults(length, dontCares, results);
+	printResults(length, dont_cares, results);
 }
 
 vector<char*>* readFasta(char* filename)

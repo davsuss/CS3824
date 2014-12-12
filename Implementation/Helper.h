@@ -22,6 +22,7 @@ typedef struct __motifResults {
 void setDontCares(motifResults * motifData, int d);
 
 void startTimer(int seconds);
+void printResults(int k, int d, motifResults* results);
 
 double calculateLogLikelyhood(int numberOfSequences,Probability prob,Profile prof, char* motif);
 motifResults* randomMotifFinder(std::vector<char*>* sequences,int k, int d);

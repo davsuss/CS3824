@@ -7,16 +7,6 @@
 
 using namespace std;
 
-void printResults(int k, int d, motifResults* results) {
-	cout << "Best Motif of length " << k << "with " << d << "don't cares is " << results->motif << endl;
-	cout << "Log likelyhood is " << results->log_likelyhood << endl;
-	cout << "Loci of the best motif are here:" << endl;
-	for (int i = 0; i < (int)results->locations->size(); i++){
-		cout << results->locations->at(i) << endl;
-	}
-}
-
-
 int main(int argc,char* argv[]) {
 
 	char* fastaFile;
@@ -72,12 +62,13 @@ int main(int argc,char* argv[]) {
 		biggest->log_likelyhood = 0;
 	
 		thread first (startTimer, max_time); // start timer thread
-		thread s1 (motif_thread_start, length, dontCares, sequences, NULL, time(NULL));
+		thread s1 (motif_thread_start, length, dontCares, sequences, time(NULL));
 			// motifResults * results = randomMotifFinder(sequences, length, dontCares);
 			// //cout << results->motif << " " << results->log_likelyhood << endl;
 			// printResults(length, dontCares, results);
 		
 		first.join();
+		s1.join();
 		// getchar();
 	return 0;
 
