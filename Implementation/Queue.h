@@ -1,13 +1,12 @@
+#ifndef QUEUEH
+#define QUEUEH
 
 #include <thread>
 #include <mutex>
 #include <queue>
 
-#ifndef QUEUEH
-#define QUEUEH
-
-
 using namespace std;
+
 template <class T>
 class ConcurrentQueue {
 
