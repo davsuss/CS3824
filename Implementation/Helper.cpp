@@ -9,7 +9,7 @@ void startTimer(int seconds) {
 
 vector<int>* randomLociCalc(vector<char*>* sequences,int k) {
 	vector<int>* loci = new  vector<int>(sequences->size());
-    srand(time(NULL));
+    
     for (int i = 0; i < (*sequences).size(); i++)
     {
 		loci->at(i) = (rand() % 100) % (strlen(sequences->at(i)) - k );

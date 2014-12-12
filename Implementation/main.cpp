@@ -1,11 +1,8 @@
 #include "Helper.h"
 #include "init.h"
-#include <iostream>
 #include <stdio.h>
 #include <ostream>
-#include <string.h>
 #include "Helper.h"
-#include <stdlib.h>
 using namespace std;
 
 void printResults(int k, int d, motifResults* results) {
@@ -20,13 +17,13 @@ void printResults(int k, int d, motifResults* results) {
 }
 
 
-
 int main(int argc,char* argv[]) {
 
 	char* fastaFile;
 	int dontCares = 0;
-	int time = 2;
+	int max_time = 2;
 	int length = 0; 
+	srand(time(NULL));
 
 	
 	for (int i = 1; i < argc; i+=2)
@@ -44,7 +41,7 @@ int main(int argc,char* argv[]) {
 				length = atoi(argv[i + 1]);
 			}
 			else if (strcmp(argv[i], "-t" ) == 0) {
-				time = atoi(argv[i + 1]);
+				max_time = atoi(argv[i + 1]);
 			}
 			else {
 				cout << argv[i];
@@ -58,7 +55,7 @@ int main(int argc,char* argv[]) {
 	
 
 	#ifdef DEBUG
-		cout << "Settings: Time:" << time << " Dont Cares: " << time << " Length " << length << endl;
+		cout << "Settings: Time:" << max_time << " Dont Cares: " << max_time << " Length " << length << endl;
 	#endif
 		vector<char*>* sequences = readFasta(fastaFile);
 		if (sequences == NULL)
@@ -80,7 +77,7 @@ int main(int argc,char* argv[]) {
 			//cout << results->motif << " " << results->log_likelyhood << endl;
 			printResults(length, dontCares, results);
 		
-		getchar();
+		// getchar();
 	return 0;
 
 }
