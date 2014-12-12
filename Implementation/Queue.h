@@ -11,13 +11,13 @@ using namespace std;
 template <class T>
 class ConcurrentQueue {
 
+private:
 std::mutex _queue_mutex;
 std::queue<T> _queue;
 
-ConcurrentQueue() {
+public :
 
-_queue_mutex = new std::mutex();
-_queue = new std::queue<T>();
+ConcurrentQueue() {
 }
 
 void addItem(T t){
