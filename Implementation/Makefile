@@ -2,7 +2,7 @@
 
 CXX = g++
 # for debugging
-CXXFLAGS = -Wall -g -std=c++11
+CXXFLAGS = -Wall -g -std=c++0x -pthread
 
 OBJS = main.o Helper.o Profile.o Probability.o init.o
 
