@@ -15,6 +15,7 @@ std::mutex _queue_mutex;
 std::queue<T> _queue;
 
 public :
+std::mutex queue_mutex;
 
 ConcurrentQueue() {
 }

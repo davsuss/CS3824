@@ -15,28 +15,33 @@ int main(int argc,char* argv[]) {
 	int length = 0; 
 	srand(time(NULL));
 
-	
-	for (int i = 1; i < argc; i+=2)
-	{
-		
-		if (i + 1 != argc) {// Check that we haven't finished parsing already
-			if (strcmp(argv[i],"-f") == 0) {
-				// We know the next argument *should* be the filename:
-				fastaFile = argv[i + 1];
-			}
-			else if (strcmp(argv[i], "-d") == 0) {
-				dontCares = atoi(argv[i + 1]);
-			}
-			else if (strcmp(argv[i], "-k") == 0) {
-				length = atoi(argv[i + 1]);
-			}
-			else if (strcmp(argv[i], "-t" ) == 0) {
-				max_time = atoi(argv[i + 1]);
-			}
-			else {
-				cout << argv[i];
-				std::cout << "Not enough or invalid arguments, please try again.\n";
-				exit(0);
+	if ((argc == 2) && (strncmp("sequences_", argv[1], 10)) == 0) {
+		sscanf(argv[1], "sequences_k%i_d%i_%*s", &length, &dontCares);
+		fastaFile = argv[1];
+	}
+	else {
+		for (int i = 1; i < argc; i+=2)
+		{
+			
+			if (i + 1 != argc) {// Check that we haven't finished parsing already
+				if (strcmp(argv[i],"-f") == 0) {
+					// We know the next argument *should* be the filename:
+					fastaFile = argv[i + 1];
+				}
+				else if (strcmp(argv[i], "-d") == 0) {
+					dontCares = atoi(argv[i + 1]);
+				}
+				else if (strcmp(argv[i], "-k") == 0) {
+					length = atoi(argv[i + 1]);
+				}
+				else if (strcmp(argv[i], "-t" ) == 0) {
+					max_time = atoi(argv[i + 1]);
+				}
+				else {
+					cout << argv[i];
+					std::cout << "Not enough or invalid arguments, please try again.\n";
+					exit(0);
+				}
 			}
 		}
 	}
@@ -58,11 +63,14 @@ int main(int argc,char* argv[]) {
 			cout << sequences->at(i) << endl;
 		}
 	#endif
-		motifResults* biggest = new motifResults();
-		biggest->log_likelyhood = 0;
+		// motifResults* biggest = new motifResults();
+		// biggest->log_likelyhood = 0;
+
+		ConcurrentQueue<motifResults*> * queue = new ConcurrentQueue<motifResults*>();
 	
 		thread first (startTimer, max_time); // start timer thread
-		thread s1 (motif_thread_start, length, dontCares, sequences, time(NULL));
+		thread s1 (motif_thread_start, queue, length, dontCares, sequences, time(NULL));
+		// thread s2 (motif_thread_start, queue, length, k, dontCares, sequences, time(NULL));
 			// motifResults * results = randomMotifFinder(sequences, length, dontCares);
 			// //cout << results->motif << " " << results->log_likelyhood << endl;
 			// printResults(length, dontCares, results);
@@ -70,7 +78,8 @@ int main(int argc,char* argv[]) {
    		time_t t1,t2;
     		t1=time(NULL);
 
-                bool continue2 = true;
+                // bool continue2 = true;
+                bool continue2 = false;
 
 
                 while(continue2)
@@ -95,8 +104,9 @@ int main(int argc,char* argv[]) {
 
 
 		
-		first.join();
 		s1.join();
+		// s2.join();
+		first.join();
 		// getchar();
 	return 0;
 

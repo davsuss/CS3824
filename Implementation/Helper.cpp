@@ -132,6 +132,13 @@ void setDontCares(motifResults * motifData, int d) {
 
 }
 
+motifResults* findMotifWithLoci(vector<char*>* sequences, vector<int>* loci, int k , int d) {
+    Probability * prob = new Probability();
+    prob->processSequences(sequences);
+    motifResults * results = grabMotif(prob, loci, sequences, k, d);        
+    return results;
+}
+
 motifResults* randomMotifFinder(vector<char*>* sequences,int k , int d){
 	vector<int>* loci = randomLociCalc(sequences, k);
 	Probability * prob = new Probability();

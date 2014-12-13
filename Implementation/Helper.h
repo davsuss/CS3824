@@ -25,6 +25,7 @@ void startTimer(int seconds);
 void printResults(int k, int d, motifResults* results);
 
 double calculateLogLikelyhood(int numberOfSequences,Probability prob,Profile prof, char* motif);
+motifResults* findMotifWithLoci(std::vector<char*>* sequences, std::vector<int>* loci, int k , int d);
 motifResults* randomMotifFinder(std::vector<char*>* sequences,int k, int d);
 std::vector<int>* randomLociCalc(std::vector<char*>* sequences,int k);
 motifResults*  grabMotif(Probability * prob, std::vector<int>* locations, std::vector<char*>* sequences, int k, int d);
