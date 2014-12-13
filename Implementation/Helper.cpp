@@ -9,7 +9,7 @@ void startTimer(int seconds) {
 }
 
 void printResults(int k, int d, motifResults* results) {
-    cout << "Best Motif of length " << k << "with " << d << "don't cares is " << results->motif << endl;
+    cout << "Best Motif of length " << k << " with " << d << " don't cares is " << results->motif << endl;
     cout << "Log likelyhood is " << results->log_likelyhood << endl;
     cout << "Loci of the best motif are here:" << endl;
     for (int i = 0; i < (int)results->locations->size(); i++){
@@ -116,7 +116,7 @@ void setDontCares(motifResults * motifData, int d) {
 	motif[strlen(motifData->motif) + 1] = '\0';
     for (i = 0; i < d; i++) {
         pos = -1;
-        for (j = 0; j < strlen(motifData->motif); j++) {
+        for (j = 1; j < strlen(motifData->motif) - 1; j++) {
             if (motif[j] != '*') {
                 if (pos < 0) {
                     pos = j;
