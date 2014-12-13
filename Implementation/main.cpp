@@ -66,6 +66,34 @@ int main(int argc,char* argv[]) {
 			// motifResults * results = randomMotifFinder(sequences, length, dontCares);
 			// //cout << results->motif << " " << results->log_likelyhood << endl;
 			// printResults(length, dontCares, results);
+
+   		time_t t1,t2;
+    		t1=time(NULL);
+
+                bool continue2 = true;
+
+
+                while(continue2)
+                {
+                        t2=time(NULL);
+                        int x = t2 - t1;
+
+
+
+
+
+
+
+
+
+                        if(x > 5)
+                        {
+                        continue2 = false;
+                        }
+                        cout << x << "\n";
+                }
+
+
 		
 		first.join();
 		s1.join();
