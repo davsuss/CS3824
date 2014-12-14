@@ -9,8 +9,9 @@
 #include "Helper.h"
 using namespace std;
 
-
-void motif_thread_start(ConcurrentQueue<motifResults*> * queue, int length, int dont_cares, vector<char*>* sequences, int seed);
+void startThreads();
+void stopThreads();
+void motif_thread_start(ConcurrentQueue * queue, int length, int dont_cares, vector<char*>* sequences, int seed);
 bool isvalidFasta(char filename[]);
 void commandParser(char newCommand);
 vector<char*>* readFasta(char* filename);

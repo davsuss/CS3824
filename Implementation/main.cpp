@@ -66,48 +66,49 @@ int main(int argc,char* argv[]) {
 		// motifResults* biggest = new motifResults();
 		// biggest->log_likelyhood = 0;
 
-		ConcurrentQueue<motifResults*> * queue = new ConcurrentQueue<motifResults*>();
+		ConcurrentQueue * queue = new ConcurrentQueue();
+		vector<thread> best_results;
 	
-		thread first (startTimer, max_time); // start timer thread
-		thread s1 (motif_thread_start, queue, length, dontCares, sequences, time(NULL));
-		// thread s2 (motif_thread_start, queue, length, k, dontCares, sequences, time(NULL));
-			// motifResults * results = randomMotifFinder(sequences, length, dontCares);
-			// //cout << results->motif << " " << results->log_likelyhood << endl;
-			// printResults(length, dontCares, results);
+		for(int i =0; i < 8; i++){		
+		best_results.push_back(thread(motif_thread_start, queue, length, dontCares, sequences, time(NULL)));
+		}
 
    		time_t t1,t2;
     		t1=time(NULL);
 
-                // bool continue2 = true;
-                bool continue2 = false;
-
-
-                while(continue2)
+                bool continue2 = true;
+		cout << "";
+		startThreads();
+        
+	        while(continue2)
                 {
                         t2=time(NULL);
                         int x = t2 - t1;
 
 
-
-
-
-
-
-
-
                         if(x > 5)
                         {
-                        continue2 = false;
+  	                      continue2 = false;
                         }
-                        cout << x << "\n";
+//                        cout << x << "\n";
                 }
+		stopThreads();
 
-
+		motifResults* biggest= new motifResults();
+		biggest->log_likelyhood = 0;
+		for(int i =0; i < best_results.size();i++)
+		{
+		best_results[i].join();
 		
-		s1.join();
-		// s2.join();
-		first.join();
-		// getchar();
-	return 0;
+		motifResults * temp = queue->removeItem();
+
+		if(biggest->log_likelyhood < temp->log_likelyhood)
+		{
+			biggest = temp;
+		}
+		
+		}		
+		printResults(length, dontCares,biggest);
+		return 0;
 
 }

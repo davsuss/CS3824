@@ -4,32 +4,32 @@
 #include <thread>
 #include <mutex>
 #include <queue>
-
+#include "Helper.h"
 using namespace std;
 
-template <class T>
 class ConcurrentQueue {
 
 private:
 std::mutex _queue_mutex;
-std::queue<T> _queue;
+std::queue<motifResults*> _queue;
 
-public :
-std::mutex queue_mutex;
-
+public:
 ConcurrentQueue() {
 }
 
-void addItem(T t){
+void addItem(motifResults* t){
 
 std::lock_guard<std::mutex> lock(_queue_mutex);
-_queue.push_front(t);
+_queue.push(t);
 
 }
 
-T removeItem() {
+motifResults* removeItem() {
 std::lock_guard<std::mutex> lock(_queue_mutex);
-return _queue.pop_back();
+
+motifResults* results =_queue.front();
+_queue.pop();
+return results;
 }
 
 };

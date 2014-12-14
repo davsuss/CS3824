@@ -1,31 +1,51 @@
 #include "init.h"
+#include <atomic>
+
+
+atomic_bool continue_bool(false);
 
 motifResults * gibbsSampling(motifResults * random_res, int length, int d, vector<char*>* sequences);
 
+
+
+void stopThreads() {
+	cout <<"END";
+	continue_bool = false;
+}
+void startThreads() {
+	cout << "START";
+	continue_bool = true;
+}
+
+
 /* method called by new thread to calculate motif */
-void motif_thread_start(ConcurrentQueue<motifResults*> * queue, int length,
-	int dont_cares,	vector<char*>* sequences, int seed)
+void motif_thread_start(ConcurrentQueue * queue, int length,int dont_cares,	vector<char*>* sequences, int seed)
 {
+	vector<char*> mysequences;
+	mysequences = *sequences;
 	motifResults* biggest, *results;
 	double best_log = 0;
-	for (int i = 0; i < 20; i ++) {
-		results = randomMotifFinder(sequences, length, dont_cares);
+	
+
+	while(!continue_bool){ std::this_thread::yield();}
+
+	while(continue_bool) {
+		results = randomMotifFinder(&mysequences, length, dont_cares);
 		//cout << results->motif << " " << results->log_likelyhood << endl;
 		if (results->log_likelyhood > best_log) {
 			best_log = results->log_likelyhood;
 			biggest = results;
-			// printResults(length, dont_cares, biggest);
 		}
-		results = gibbsSampling(results, length, dont_cares, sequences);
+		results = gibbsSampling(results, length, dont_cares,&mysequences);
 		if (results) {
 			if (results->log_likelyhood > best_log) {
 				best_log = results->log_likelyhood;
 				biggest = results;
-				// printResults(length, dont_cares, biggest);
 			}
 		}
 	}
-	printResults(length, dont_cares, biggest);
+
+	queue->addItem(biggest);
 }
 
 motifResults * gibbsSampling(motifResults * random_res, int length, int d, vector<char*>* sequences) {
