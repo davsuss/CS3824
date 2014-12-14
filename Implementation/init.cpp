@@ -35,10 +35,10 @@ motifResults * gibbsSampling(motifResults * random_res, int length, int d, vecto
 	motifResults* best_res = random_res;
 	bool sample;
 	int redo, samples;
-	for (i = 0; i < sequences->size(); i++) {
+	for (i = 0; i < (int)sequences->size(); i++) {
 		sample = true;
 		redo = samples = 0;
-		while(sample) {
+		while (sample) {
 			samples++;
 			j = (rand() % 100) % (strlen(sequences->at(i)) - length );
 			old_j = locations->at(i);
@@ -49,7 +49,7 @@ motifResults * gibbsSampling(motifResults * random_res, int length, int d, vecto
 			}
 			else {
 				locations->at(i) = old_j;
-				if ((redo > 4) || (samples > (strlen(sequences->at(i)) - length) / 2)) {
+				if ((redo > 4) || (samples > ((int)strlen(sequences->at(i)) - length) / 2)) {
 					sample = false;
 				}
 			}
@@ -83,10 +83,6 @@ vector<char*>* readFasta(char* filename)
 		
 
 		//parse the line, ignore blank spaces, check if its a header	
-		if (!buf) //ignore blank lines
-		{
-			continue;
-		}
 		if (buf[0] == '>') //if the line is a header
 		{
 			if (sequence != NULL) {
