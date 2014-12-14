@@ -117,11 +117,12 @@ void setDontCares(motifResults * motifData, int d) {
     for (i = 0; i < d; i++) {
         pos = -1;
         for (j = 1; j < strlen(motifData->motif) - 1; j++) {
+            // printf("%i\n", motifData->profile->getHighest(j)->number);
             if (motif[j] != '*') {
                 if (pos < 0) {
                     pos = j;
                 }
-                else if (motifData->profile->getHighest(pos) > motifData->profile->getHighest(j)) {
+                else if (motifData->profile->getHighest(pos)->number > motifData->profile->getHighest(j)->number) {
                     pos = j;
                 }
             }
