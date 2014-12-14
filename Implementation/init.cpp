@@ -1,59 +1,58 @@
 #include "init.h"
 
-motifResults * gibbsSampling(double * best_log, int length, int d, vector<char*>* sequences, vector<int> * locations);
+motifResults * gibbsSampling(motifResults * random_res, int length, int d, vector<char*>* sequences);
 
 /* method called by new thread to calculate motif */
-void motif_thread_start(ConcurrentQueue<motifResults*> * queue, int length, int dont_cares, vector<char*>* sequences, int seed) {
+void motif_thread_start(ConcurrentQueue<motifResults*> * queue, int length,
+	int dont_cares,	vector<char*>* sequences, int seed)
+{
 	motifResults* biggest, *results;
 	double best_log = 0;
-	for (int i = 0; i < 10; i ++) {
+	for (int i = 0; i < 20; i ++) {
 		results = randomMotifFinder(sequences, length, dont_cares);
 		//cout << results->motif << " " << results->log_likelyhood << endl;
 		if (results->log_likelyhood > best_log) {
 			best_log = results->log_likelyhood;
 			biggest = results;
-			printResults(length, dont_cares, biggest);
+			// printResults(length, dont_cares, biggest);
 		}
-		results = gibbsSampling(&best_log, length, dont_cares, sequences, results->locations);
+		results = gibbsSampling(results, length, dont_cares, sequences);
 		if (results) {
 			if (results->log_likelyhood > best_log) {
 				best_log = results->log_likelyhood;
 				biggest = results;
-				printResults(length, dont_cares, biggest);
+				// printResults(length, dont_cares, biggest);
 			}
 		}
 	}
-	queue->queue_mutex.lock();
 	printResults(length, dont_cares, biggest);
-	// for (int i = 0; i < sequences->size(); i++) {
-	// 	for (int j = 0; j < length; j++) {
-	// 		printf("%c", sequences->at(i)[(biggest->locations->at(i)) + j]);
-	// 	}
-	// 	printf("\n");
-	// }
-	queue->queue_mutex.unlock();
 }
 
-motifResults * gibbsSampling(double * best_log, int length, int d, vector<char*>* sequences, vector<int> * locations) {
+motifResults * gibbsSampling(motifResults * random_res, int length, int d, vector<char*>* sequences) {
 	int i, j, old_j;
+	vector<int> * locations = random_res->locations;
 
-	motifResults* best_res;
-
+	motifResults* best_res = random_res;
+	bool sample;
+	int redo, samples;
 	for (i = 0; i < sequences->size(); i++) {
-		for (j = 0; j < strlen(sequences->at(i)) - length; j++) {
-			// strncpy(lmer, sequences->at(i), length);
+		sample = true;
+		redo = samples = 0;
+		while(sample) {
+			samples++;
+			j = (rand() % 100) % (strlen(sequences->at(i)) - length );
 			old_j = locations->at(i);
 			locations->at(i) = j;
 			motifResults *res = findMotifWithLoci(sequences, locations, length, d);
-			if (*best_log < res->log_likelyhood) {
+			if (best_res->log_likelyhood < res->log_likelyhood) {
 				best_res = res;
-				*best_log = best_res->log_likelyhood;
-				printf("found a new best\n");
 			}
-			// else {
-			// 	locations->at(i) = old_j;
-			// 	break;
-			// }
+			else {
+				locations->at(i) = old_j;
+				if ((redo > 4) || (samples > (strlen(sequences->at(i)) - length) / 2)) {
+					sample = false;
+				}
+			}
 		}
 	}
 	return best_res;
