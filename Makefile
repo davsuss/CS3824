@@ -1,18 +1,22 @@
 #
 
-CC = g++
-# CFLAGS = -Wall -O3 -Werror
+CXX = g++
 # for debugging
-CFLAGS = -Wall -g -Werror
+CXXFLAGS = -Wall -g -std=c++0x -pthread
 
-OBJS = Source.o helpers.o
+OBJS = main.o Helper.o Profile.o Probability.o init.o
+
+all: motif-finder
 
 motif-finder: $(OBJS)
-	$(CC) $(CFLAGS) -o motif-finder $(OBJS)
+	$(CXX) $(CXXFLAGS) -o motif-finder $(OBJS)
 
 
-Source.o: Source.cpp
-helpers.o: helpers.cpp
+main.o: main.cpp Helper.h init.h Queue.h
+Helper.o: Helper.cpp Helper.h Profile.h Probability.h
+Profile.o: Profile.h Matrix.h
+Probability.o: Probability.h Probability.cpp Matrix.h
+init.o: init.h init.cpp
 
 clean:
 	rm -f *~ *.o motif-finder

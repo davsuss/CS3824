@@ -1,0 +1,80 @@
+INFO: 2014-12-14 15:09:44,910: Starting EvaluateLogLikelihood
+INFO: 2014-12-14 15:09:44,911: Arguments sucessfully parsed
+INFO: 2014-12-14 15:09:44,911: Input FASTA file is sequences_k13_d5_n20_m100_mu0.15.fasta
+INFO: 2014-12-14 15:09:44,911: Motif length is 13
+INFO: 2014-12-14 15:09:44,911: Number of don't cares is 5
+INFO: 2014-12-14 15:09:44,911: header line found:
+	>Sequence1 length 111
+INFO: 2014-12-14 15:09:44,912: header line found:
+	>Sequence2 length 76
+INFO: 2014-12-14 15:09:44,912: header line found:
+	>Sequence3 length 109
+INFO: 2014-12-14 15:09:44,912: header line found:
+	>Sequence4 length 77
+INFO: 2014-12-14 15:09:44,912: header line found:
+	>Sequence5 length 101
+INFO: 2014-12-14 15:09:44,912: header line found:
+	>Sequence6 length 108
+INFO: 2014-12-14 15:09:44,912: header line found:
+	>Sequence7 length 115
+INFO: 2014-12-14 15:09:44,912: header line found:
+	>Sequence8 length 99
+INFO: 2014-12-14 15:09:44,912: header line found:
+	>Sequence9 length 99
+INFO: 2014-12-14 15:09:44,912: header line found:
+	>Sequence10 length 92
+INFO: 2014-12-14 15:09:44,912: header line found:
+	>Sequence11 length 77
+INFO: 2014-12-14 15:09:44,912: header line found:
+	>Sequence12 length 76
+INFO: 2014-12-14 15:09:44,912: header line found:
+	>Sequence13 length 114
+INFO: 2014-12-14 15:09:44,913: header line found:
+	>Sequence14 length 81
+INFO: 2014-12-14 15:09:44,913: header line found:
+	>Sequence15 length 93
+INFO: 2014-12-14 15:09:44,913: header line found:
+	>Sequence16 length 103
+INFO: 2014-12-14 15:09:44,913: header line found:
+	>Sequence17 length 124
+INFO: 2014-12-14 15:09:44,913: header line found:
+	>Sequence18 length 88
+INFO: 2014-12-14 15:09:44,913: header line found:
+	>Sequence19 length 104
+INFO: 2014-12-14 15:09:44,913: header line found:
+	>Sequence20 length 85
+INFO: 2014-12-14 15:09:44,913: Count of A's is 464
+INFO: 2014-12-14 15:09:44,913: Count of C's is 511
+INFO: 2014-12-14 15:09:44,913: Count of G's is 537
+INFO: 2014-12-14 15:09:44,913: Count of T's is 420
+INFO: 2014-12-14 15:09:44,913: Total nucleotide count is 1932
+INFO: 2014-12-14 15:09:44,914: Probability of A is 0.2401656314699793
+INFO: 2014-12-14 15:09:44,914: Probability of C is 0.2644927536231884
+INFO: 2014-12-14 15:09:44,914: Probability of G is 0.2779503105590062
+INFO: 2014-12-14 15:09:44,914: Probability of T is 0.21739130434782608
+INFO: 2014-12-14 15:09:44,914: Reported k is 13
+INFO: 2014-12-14 15:09:44,914: Reported d is 5
+INFO: 2014-12-14 15:09:44,914: Reported motif is AG**GA***CTCT
+INFO: 2014-12-14 15:09:44,915: Reported locus is 27
+INFO: 2014-12-14 15:09:44,915: Reported locus is 42
+INFO: 2014-12-14 15:09:44,915: Reported locus is 89
+INFO: 2014-12-14 15:09:44,915: Reported locus is 39
+INFO: 2014-12-14 15:09:44,915: Reported locus is 9
+INFO: 2014-12-14 15:09:44,915: Reported locus is 24
+INFO: 2014-12-14 15:09:44,915: Reported locus is 25
+INFO: 2014-12-14 15:09:44,915: Reported locus is 3
+INFO: 2014-12-14 15:09:44,915: Reported locus is 21
+INFO: 2014-12-14 15:09:44,915: Reported locus is 27
+INFO: 2014-12-14 15:09:44,915: Reported locus is 31
+INFO: 2014-12-14 15:09:44,915: Reported locus is 7
+INFO: 2014-12-14 15:09:44,915: Reported locus is 73
+INFO: 2014-12-14 15:09:44,915: Reported locus is 27
+INFO: 2014-12-14 15:09:44,915: Reported locus is 10
+INFO: 2014-12-14 15:09:44,916: Reported locus is 51
+INFO: 2014-12-14 15:09:44,916: Reported locus is 25
+INFO: 2014-12-14 15:09:44,916: Reported locus is 24
+INFO: 2014-12-14 15:09:44,916: Reported locus is 71
+INFO: 2014-12-14 15:09:44,916: Reported locus is 44
+INFO: 2014-12-14 15:09:44,916: Evaluated motif CAG**GA***CTC
+INFO: 2014-12-14 15:09:44,916: Log likelihood is 8.24832226243523
+INFO: 2014-12-14 15:09:44,916: Ending EvaluateLogLikelihood

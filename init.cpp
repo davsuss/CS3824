@@ -28,7 +28,9 @@ void motif_thread_start(ConcurrentQueue * queue, int length,int dont_cares,	vect
 	double best_log = 0;
 	
 
-	while(!continue_bool){ std::this_thread::yield();}
+	while (!continue_bool) { 
+		exit(0);
+	}
 
 	while(continue_bool) {
 		results = randomMotifFinder(&mysequences, length, dont_cares);

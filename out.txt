@@ -1,0 +1,24 @@
+Best Motif of length 13 with 5 don't cares is CC*T*G*GGC**A
+Log likelyhood is 12.0168
+Loci of the best motif are here:
+33
+21
+27
+33
+4
+5
+20
+42
+59
+36
+77
+1
+18
+86
+5
+61
+39
+75
+6
+80
+9
