@@ -1,20 +1,21 @@
 #include "init.h"
-#include <atomic>
 
+mutex continue_mutex;
 
-atomic_bool continue_bool(false);
+bool continue_bool(false);
 
 motifResults * gibbsSampling(motifResults * random_res, int length, int d, vector<char*>* sequences);
 
 
-
 void stopThreads() {
-	cout <<"END";
+	continue_mutex.lock();
 	continue_bool = false;
+	continue_mutex.unlock();
 }
 void startThreads() {
-	cout << "START";
+	continue_mutex.lock();
 	continue_bool = true;
+	continue_mutex.unlock();
 }
 
 
@@ -56,6 +57,9 @@ motifResults * gibbsSampling(motifResults * random_res, int length, int d, vecto
 	bool sample;
 	int redo, samples;
 	for (i = 0; i < (int)sequences->size(); i++) {
+		if (!continue_bool) {
+			return best_res;
+		}
 		sample = true;
 		redo = samples = 0;
 		while (sample) {

@@ -76,22 +76,21 @@ int main(int argc,char* argv[]) {
    		time_t t1,t2;
     		t1=time(NULL);
 
-                bool continue2 = true;
+        bool continue2 = true;
 		cout << "";
 		startThreads();
         
-	        while(continue2)
-                {
-                        t2=time(NULL);
-                        int x = t2 - t1;
+        while(continue2)
+        {
+            t2=time(NULL);
+            int x = t2 - t1;
 
 
-                        if(x > 5)
-                        {
-  	                      continue2 = false;
-                        }
-//                        cout << x << "\n";
-                }
+            if (x > max_time)
+            {
+                  continue2 = false;
+            }
+        }
 		stopThreads();
 
 		motifResults* biggest= new motifResults();
