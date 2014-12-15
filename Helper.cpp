@@ -22,7 +22,7 @@ vector<int>* randomLociCalc(vector<char*>* sequences,int k) {
     
     for (int i = 0; i < (*sequences).size(); i++)
     {
-		loci->at(i) = (rand() % 100) % (strlen(sequences->at(i)) - k );
+		loci->at(i) = (rand() % 100) % ((int)strlen(sequences->at(i)) - k );
         // srand(1);
 	}
 	return loci;

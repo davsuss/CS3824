@@ -13,7 +13,7 @@ void Probability::processSequences(vector<char*>* sequences){
 	
 	for (int i = 0; i < sequences->size(); i++)
 	{
-		int length = strlen(sequences->at(i));
+		int length = (int)strlen(sequences->at(i));
 		char * seq = sequences->at(i);
 		for (int y = 0; y < length; y++)
 		{
