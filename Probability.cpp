@@ -11,7 +11,7 @@ void Probability::processSequences(vector<char*>* sequences){
 	double countC = 0.0;
 	double countG = 0.0;
 	
-	for (int i = 0; i < sequences->size(); i++)
+	for (int i = 0; i < (int)sequences->size(); i++)
 	{
 		int length = (int)strlen(sequences->at(i));
 		char * seq = sequences->at(i);

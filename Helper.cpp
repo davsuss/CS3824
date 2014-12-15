@@ -20,7 +20,7 @@ void printResults(int k, int d, motifResults* results) {
 vector<int>* randomLociCalc(vector<char*>* sequences,int k) {
 	vector<int>* loci = new  vector<int>(sequences->size());
     
-    for (int i = 0; i < (*sequences).size(); i++)
+    for (int i = 0; i < (int)sequences->size(); i++)
     {
 		loci->at(i) = (rand() % 100) % ((int)strlen(sequences->at(i)) - k );
         // srand(1);
