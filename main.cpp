@@ -95,7 +95,7 @@ int main(int argc,char* argv[]) {
 
 		motifResults* biggest= new motifResults();
 		biggest->log_likelyhood = 0;
-		for(int i =0; i < best_results.size();i++)
+		for(int i =0; i < (int)best_results.size();i++)
 		{
 		best_results[i].join();
 		
