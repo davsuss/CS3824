@@ -29,7 +29,7 @@ void motif_thread_start(ConcurrentQueue * queue, int length,int dont_cares,	vect
 	
 
 	while (!continue_bool) { 
-		exit(0);
+		; // wait until threads are told to start
 	}
 
 	while(continue_bool) {
